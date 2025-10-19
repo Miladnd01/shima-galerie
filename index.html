@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shima Galerie - Realistische Kunstwerke mit Kugelschreiber und Bleistift">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shima Galerie - Realistische Kunstwerke mit Kugelschreiber und Bleistift" />
   <title>Shima Galerie | Realistische Kunst</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --primary-dark: #1a1a1a;
@@ -22,288 +18,122 @@
       --shadow: rgba(0, 0, 0, 0.15);
     }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background: var(--bg-light);
-    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-light); }
 
-    .language-selector {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px var(--shadow);
-      overflow: hidden;
-    }
+    .language-selector { position: fixed; top: 20px; right: 20px; z-index: 1000; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px var(--shadow); overflow: hidden; }
+    .language-selector select { padding: 0.7rem 1.5rem; font-size: 1rem; border: none; background: #fff; color: var(--primary-dark); cursor: pointer; font-weight: 500; }
+    .language-selector select:focus { outline: 2px solid var(--accent); }
 
-    .language-selector select {
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      background: white;
-      color: var(--primary-dark);
-      cursor: pointer;
-      font-weight: 500;
-    }
+    header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%); color: var(--text-light); padding: 4rem 2rem; text-align: center; position: relative; overflow: hidden; }
+    header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 50%, rgba(212,175,55,0.1) 0%, transparent 50%); pointer-events: none; }
+    header h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 2px; position: relative; z-index: 1; }
+    header p { font-size: 1.3rem; color: rgba(255,255,255,0.85); position: relative; z-index: 1; }
 
-    .language-selector select:focus {
-      outline: 2px solid var(--accent);
-    }
+    nav { background: var(--secondary-dark); padding: 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px var(--shadow); }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    nav a { color: var(--text-light); text-decoration: none; font-size: 1.1rem; font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; transition: all 0.3s ease; position: relative; }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--accent); transition: all 0.3s ease; transform: translateX(-50%); }
+    nav a:hover { color: var(--accent); }
+    nav a:hover::after { width: 80%; }
 
-    header {
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
-      color: var(--text-light);
-      padding: 4rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+    section { max-width: 1200px; margin: 3rem auto; padding: 2rem; }
 
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
-      pointer-events: none;
-    }
+    h2 { font-size: 2.5rem; margin-bottom: 2rem; color: var(--primary-dark); text-align: center; position: relative; padding-bottom: 1rem; }
+    h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--accent); }
 
-    header h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: 2px;
-      position: relative;
-      z-index: 1;
-    }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; cursor: zoom-in; }
+    .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+    .gallery-item img { width: 100%; height: 350px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-overlay { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; font-size: 1.1rem; }
 
-    header p {
-      font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.85);
-      position: relative;
-      z-index: 1;
-    }
+    .about-container { background: #fff; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow); max-width: 700px; margin: 2rem auto; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .about-container:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
 
-    nav {
-      background: var(--secondary-dark);
-      padding: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 10px var(--shadow);
-    }
+    .purchase-info { background: #fff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow); max-width: 800px; margin: 3rem auto; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .purchase-info:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+    .purchase-info p { font-size: 1.15rem; line-height: 1.8; color: var(--text-dark); text-align: center; margin: 0; }
+    .purchase-info strong { color: var(--accent); font-weight: 700; }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    nav a:hover::after {
-      width: 80%;
-    }
-
-    section {
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 2rem;
-    }
-
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      color: var(--primary-dark);
-      text-align: center;
-      position: relative;
-      padding-bottom: 1rem;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: var(--accent);
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px var(--shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background: white;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 350px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.1);
-    }
-
-    .gallery-overlay {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-
-    .about-container {
-      background: white;
-      padding: 3rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px var(--shadow);
-      max-width: 700px;
-      margin: 2rem auto;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .about-container:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .purchase-info {
-      background: white;
-      padding: 2.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px var(--shadow);
-      max-width: 800px;
-      margin: 3rem auto;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .purchase-info:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .purchase-info p {
-      font-size: 1.15rem;
-      line-height: 1.8;
-      color: var(--text-dark);
-      text-align: center;
-      margin: 0;
-    }
-
-    .purchase-info strong {
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    footer {
-      background: var(--primary-dark);
-      color: var(--text-light);
-      text-align: center;
-      padding: 2rem;
-      margin-top: 4rem;
-    }
-
-    footer p {
-      margin: 0;
-      font-size: 0.95rem;
-    }
+    footer { background: var(--primary-dark); color: var(--text-light); text-align: center; padding: 2rem; margin-top: 4rem; }
+    footer p { margin: 0; font-size: 0.95rem; }
 
     @media (max-width: 768px) {
-      .language-selector {
-        top: 10px;
-        right: 10px;
-      }
-
-      header h1 {
-        font-size: 2.5rem;
-      }
-
-      header p {
-        font-size: 1.1rem;
-      }
-
-      h2 {
-        font-size: 2rem;
-      }
-
-      nav ul {
-        gap: 1.5rem;
-      }
-
-      .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .about-container {
-        padding: 2rem;
-      }
-
-      section {
-        padding: 1.5rem;
-      }
+      .language-selector { top: 10px; right: 10px; }
+      header h1 { font-size: 2.5rem; }
+      header p { font-size: 1.1rem; }
+      h2 { font-size: 2rem; }
+      nav ul { gap: 1.5rem; }
+      .gallery { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+      .about-container { padding: 2rem; }
+      section { padding: 1.5rem; }
     }
+
+    /* ===== Fullscreen Lightbox ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none; /* toggled via .open */
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox .close-btn {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-size: 1rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .lightbox .close-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+    .lightbox .counter {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+    }
+    .lightbox .nav {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; pointer-events: none;
+    }
+    .lightbox .nav button {
+      pointer-events: auto;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 1.25rem;
+      padding: 0.6rem 0.9rem;
+      margin: 0 0.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      backdrop-filter: blur(2px);
+    }
+    .lightbox .nav button:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
+
+    /* Prevent body scroll when lightbox is open */
+    body.lb-lock { overflow: hidden; }
   </style>
 </head>
 <body>
-
   <div class="language-selector">
     <select id="languageSelect" onchange="changeLanguage()">
       <option value="de">Deutsch</option>
@@ -339,7 +169,7 @@
 
   <section id="galerie">
     <h2 id="galleryTitle">Meine Kunstwerke</h2>
-    <div class="gallery">
+    <div class="gallery" id="galleryGrid">
       <div class="gallery-item"><img src="IMG_0472.JPG" alt="Kunstwerk 1"><div class="gallery-overlay"><span>#001</span></div></div>
       <div class="gallery-item"><img src="IMG_0474.JPG" alt="Kunstwerk 2"><div class="gallery-overlay"><span>#002</span></div></div>
       <div class="gallery-item"><img src="IMG_0476.JPG" alt="Kunstwerk 3"><div class="gallery-overlay"><span>#003</span></div></div>
@@ -369,18 +199,28 @@
 
     <div class="purchase-info">
       <p id="purchaseInfo">
-        <strong>Interessiert an einem Kunstwerk?</strong><br>
+        <strong>Interessiert an einem Kunstwerk?</strong><br />
         Für Verkauf, Ausstellungen, Entwürfe oder Zusammenarbeit kontaktieren Sie mich bitte unter: <strong>miladnd01@gmail.com</strong>
       </p>
     </div>
   </section>
 
-  <section id="kontakt">
-  </section>
+  <section id="kontakt"></section>
 
   <footer>
     <p id="footerText">Erstellt von Bikineh</p>
   </footer>
+
+  <!-- ===== Fullscreen Lightbox Markup ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Bild Großansicht">
+    <button class="close-btn" id="lbClose" aria-label="Schließen (Esc)">✕</button>
+    <div class="nav">
+      <button id="lbPrev" aria-label="Vorheriges (←)">←</button>
+      <button id="lbNext" aria-label="Nächstes (→)">→</button>
+    </div>
+    <img id="lbImg" src="" alt="Großes Bild" />
+    <div class="counter" id="lbCounter">1 / 1</div>
+  </div>
 
   <script>
     const translations = {
@@ -422,7 +262,7 @@
     function changeLanguage() {
       const lang = document.getElementById('languageSelect').value;
       const t = translations[lang];
-      
+
       document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
       document.getElementById('navAbout').textContent = t.navAbout;
       document.getElementById('navGallery').textContent = t.navGallery;
@@ -440,17 +280,84 @@
       }
     }
 
+    // Smooth scroll for nav links
     document.querySelectorAll('nav a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
-  </script>
 
+    // ===== Lightbox Logic =====
+    (function setupLightbox() {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbClose = document.getElementById('lbClose');
+      const lbPrev = document.getElementById('lbPrev');
+      const lbNext = document.getElementById('lbNext');
+      const lbCounter = document.getElementById('lbCounter');
+
+      const items = Array.from(document.querySelectorAll('.gallery-item img'));
+      let index = 0;
+
+      function openAt(i) {
+        index = i;
+        const src = items[index].getAttribute('src');
+        const alt = items[index].getAttribute('alt') || 'Bild';
+        lbImg.src = src;
+        lbImg.alt = alt;
+        lbCounter.textContent = `${index + 1} / ${items.length}`;
+        lb.classList.add('open');
+        document.body.classList.add('lb-lock');
+        lb.setAttribute('aria-hidden', 'false');
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        document.body.classList.remove('lb-lock');
+        lb.setAttribute('aria-hidden', 'true');
+        // Clear src to free memory on mobile
+        lbImg.src = '';
+      }
+
+      function next() { openAt((index + 1) % items.length); }
+      function prev() { openAt((index - 1 + items.length) % items.length); }
+
+      items.forEach((img, i) => {
+        img.addEventListener('click', () => openAt(i));
+        img.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', 'Großansicht öffnen');
+      });
+
+      lbClose.addEventListener('click', close);
+      lbNext.addEventListener('click', next);
+      lbPrev.addEventListener('click', prev);
+
+      // Close on backdrop click (but not when clicking the image or buttons)
+      lb.addEventListener('click', (e) => {
+        const clickedInsideControls = e.target === lbImg || e.target === lbNext || e.target === lbPrev || e.target === lbClose;
+        if (!clickedInsideControls) close();
+      });
+
+      // Keyboard support
+      document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+      });
+
+      // Swipe support (simple)
+      let touchStartX = 0;
+      lb.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+      lb.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
