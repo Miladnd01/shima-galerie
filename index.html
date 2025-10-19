@@ -199,23 +199,14 @@
 
     .gallery-overlay {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
-      padding: 1.5rem;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-    }
-
-    .gallery-item:hover .gallery-overlay {
-      transform: translateY(0);
-    }
-
-    .gallery-overlay p {
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
       color: white;
-      font-size: 1rem;
-      margin: 0;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
 
     .about-container {
@@ -225,6 +216,29 @@
       box-shadow: 0 5px 20px var(--shadow);
       max-width: 700px;
       margin: 2rem auto;
+    }
+
+    .purchase-info {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 2.5rem;
+      border-radius: 15px;
+      border-left: 5px solid var(--accent);
+      max-width: 800px;
+      margin: 3rem auto;
+      box-shadow: 0 5px 20px var(--shadow);
+    }
+
+    .purchase-info p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-dark);
+      text-align: center;
+      margin: 0;
+    }
+
+    .purchase-info strong {
+      color: var(--accent);
+      font-weight: 700;
     }
 
     .contact-container {
@@ -338,77 +352,11 @@
 
   <nav>
     <ul>
-      <li><a href="#galerie" id="navGallery">Galerie</a></li>
       <li><a href="#ueber" id="navAbout">Über mich</a></li>
+      <li><a href="#galerie" id="navGallery">Galerie</a></li>
       <li><a href="#kontakt" id="navContact">Kontakt</a></li>
     </ul>
   </nav>
-
-  <section id="galerie">
-    <h2 id="galleryTitle">Meine Kunstwerke</h2>
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="IMG_0471.JPG" alt="Kunstwerk 1">
-        <div class="gallery-overlay">
-          <p id="art1">Kugelschreiber auf Papier</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="IMG_0472.JPG" alt="Kunstwerk 2">
-        <div class="gallery-overlay">
-          <p id="art2">Bleistiftzeichnung</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="IMG_0474.JPG" alt="Kunstwerk 3">
-        <div class="gallery-overlay">
-          <p id="art3">Realistische Porträt</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="IMG_0476.JPG" alt="Kunstwerk 4">
-        <div class="gallery-overlay">
-          <p id="art4">Detailarbeit</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="IMG_0477.JPG" alt="Kunstwerk 5">
-        <div class="gallery-overlay">
-          <p id="art5">Kugelschreiber-Kunst</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="photo_2025-10-02_19-05-39.jpg" alt="Kunstwerk 6">
-        <div class="gallery-overlay">
-          <p id="art6">Bleistift-Skizze</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="photo_2025-10-02_19-06-08.jpg" alt="Kunstwerk 7">
-        <div class="gallery-overlay">
-          <p id="art7">Realistische Darstellung</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="photo_2025-10-02_19-06-16.jpg" alt="Kunstwerk 8">
-        <div class="gallery-overlay">
-          <p id="art8">Handzeichnung</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="photo_2025-10-02_19-06-24.jpg" alt="Kunstwerk 9">
-        <div class="gallery-overlay">
-          <p id="art9">Künstlerische Arbeit</p>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="photo_2025-10-02_19-06-31.jpg" alt="Kunstwerk 10">
-        <div class="gallery-overlay">
-          <p id="art10">Feine Linienführung</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section id="ueber">
     <h2 id="aboutTitle">Über mich</h2>
@@ -422,17 +370,76 @@
     </div>
   </section>
 
-  <section id="kontakt">
-    <h2 id="contactTitle">Kontakt</h2>
-    <div class="contact-container">
-      <p class="contact-intro" id="contactIntro">
-        Hast du Fragen zu meinen Werken oder möchtest du ein individuelles Kunstwerk in Auftrag geben?
-      </p>
-      <div class="contact-email">
-        <a href="mailto:miladnd01@gmail.com">
-          📧 miladnd01@gmail.com
-        </a>
+  <section id="galerie">
+    <h2 id="galleryTitle">Meine Kunstwerke</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="IMG_0471.JPG" alt="Kunstwerk 1">
+        <div class="gallery-overlay">
+          <span>#001</span>
+        </div>
       </div>
+      <div class="gallery-item">
+        <img src="IMG_0472.JPG" alt="Kunstwerk 2">
+        <div class="gallery-overlay">
+          <span>#002</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="IMG_0474.JPG" alt="Kunstwerk 3">
+        <div class="gallery-overlay">
+          <span>#003</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="IMG_0476.JPG" alt="Kunstwerk 4">
+        <div class="gallery-overlay">
+          <span>#004</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="IMG_0477.JPG" alt="Kunstwerk 5">
+        <div class="gallery-overlay">
+          <span>#005</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="photo_2025-10-02_19-05-39.jpg" alt="Kunstwerk 6">
+        <div class="gallery-overlay">
+          <span>#006</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="photo_2025-10-02_19-06-08.jpg" alt="Kunstwerk 7">
+        <div class="gallery-overlay">
+          <span>#007</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="photo_2025-10-02_19-06-16.jpg" alt="Kunstwerk 8">
+        <div class="gallery-overlay">
+          <span>#008</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="photo_2025-10-02_19-06-24.jpg" alt="Kunstwerk 9">
+        <div class="gallery-overlay">
+          <span>#009</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="photo_2025-10-02_19-06-31.jpg" alt="Kunstwerk 10">
+        <div class="gallery-overlay">
+          <span>#010</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="purchase-info">
+      <p id="purchaseInfo">
+        <strong>Interessiert an einem Kunstwerk?</strong><br>
+        Für Verkauf, Ausstellungen, Entwürfe oder Zusammenarbeit kontaktieren Sie mich bitte unter: <strong>miladnd01@gmail.com</strong>
+      </p>
     </div>
   </section>
 
@@ -444,69 +451,36 @@
     const translations = {
       de: {
         headerSubtitle: 'Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️',
-        navGallery: 'Galerie',
         navAbout: 'Über mich',
+        navGallery: 'Galerie',
         navContact: 'Kontakt',
-        galleryTitle: 'Meine Kunstwerke',
-        art1: 'Kugelschreiber auf Papier',
-        art2: 'Bleistiftzeichnung',
-        art3: 'Realistische Porträt',
-        art4: 'Detailarbeit',
-        art5: 'Kugelschreiber-Kunst',
-        art6: 'Bleistift-Skizze',
-        art7: 'Realistische Darstellung',
-        art8: 'Handzeichnung',
-        art9: 'Künstlerische Arbeit',
-        art10: 'Feine Linienführung',
         aboutTitle: 'Über mich',
         aboutText: 'Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit des Alltäglichen und der Komplexität menschlicher Ausdrucksformen.',
-        contactTitle: 'Kontakt',
-        contactIntro: 'Hast du Fragen zu meinen Werken oder möchtest du ein individuelles Kunstwerk in Auftrag geben?',
+        galleryTitle: 'Meine Kunstwerke',
+        purchaseInfo: '<strong>Interessiert an einem Kunstwerk?</strong><br>Für Verkauf, Ausstellungen, Entwürfe oder Zusammenarbeit kontaktieren Sie mich bitte unter: <strong>miladnd01@gmail.com</strong>',
         footerText: 'Erstellt von Bikineh'
       },
       en: {
         headerSubtitle: 'Realistic Artwork with Pen & Pencil ✏️',
-        navGallery: 'Gallery',
         navAbout: 'About Me',
+        navGallery: 'Gallery',
         navContact: 'Contact',
-        galleryTitle: 'My Artworks',
-        art1: 'Pen on Paper',
-        art2: 'Pencil Drawing',
-        art3: 'Realistic Portrait',
-        art4: 'Detailed Work',
-        art5: 'Pen Art',
-        art6: 'Pencil Sketch',
-        art7: 'Realistic Depiction',
-        art8: 'Hand Drawing',
-        art9: 'Artistic Work',
-        art10: 'Fine Line Work',
         aboutTitle: 'About Me',
         aboutText: 'Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. Each piece is created with patience, precision and passion for detail. I find my inspiration in the beauty of everyday life and the complexity of human expression.',
-        contactTitle: 'Contact',
-        contactIntro: 'Do you have questions about my work or would you like to commission a custom artwork?',
+        galleryTitle: 'My Artworks',
+        purchaseInfo: '<strong>Interested in an artwork?</strong><br>For purchase, exhibitions, commissions or collaborations, please contact me at: <strong>miladnd01@gmail.com</strong>',
         footerText: 'Created by Bikineh'
       },
       fa: {
         headerSubtitle: 'آثار هنری واقع‌گرایانه با خودکار و مداد ✏️',
-        navGallery: 'گالری',
         navAbout: 'درباره من',
+        navGallery: 'گالری',
         navContact: 'تماس',
-        galleryTitle: 'آثار هنری من',
-        art1: 'خودکار روی کاغذ',
-        art2: 'طراحی با مداد',
-        art3: 'پرتره واقع‌گرایانه',
-        art4: 'کار جزئیات',
-        art5: 'هنر خودکار',
-        art6: 'طرح مداد',
-        art7: 'نمایش واقع‌گرایانه',
-        art8: 'طراحی دستی',
-        art9: 'کار هنری',
-        art10: 'خط‌کشی ظریف',
         aboutTitle: 'درباره من',
         aboutText: 'به گالری من خوش آمدید! من شیما هستم و آثار هنری واقع‌گرایانه با خودکار و مداد خلق می‌کنم. هر اثر با صبر، دقت و اشتیاق به جزئیات ایجاد می‌شود. الهام من را در زیبایی زندگی روزمره و پیچیدگی بیان انسانی می‌یابم.',
-        contactTitle: 'تماس',
-        contactIntro: 'سوالی درباره آثار من دارید یا می‌خواهید یک اثر هنری سفارشی سفارش دهید؟',
-        footerText: 'ساخته شده توسط بیکینه'
+        galleryTitle: 'آثار هنری من',
+        purchaseInfo: '<strong>به یک اثر هنری علاقه‌مند هستید؟</strong><br>برای خرید، نمایشگاه‌ها، سفارشات یا همکاری، لطفاً با من تماس بگیرید: <strong>miladnd01@gmail.com</strong>',
+        footerText: 'ساخته شده توسط بی کینه'
       }
     };
 
@@ -515,24 +489,13 @@
       const t = translations[lang];
       
       document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
-      document.getElementById('navGallery').textContent = t.navGallery;
       document.getElementById('navAbout').textContent = t.navAbout;
+      document.getElementById('navGallery').textContent = t.navGallery;
       document.getElementById('navContact').textContent = t.navContact;
-      document.getElementById('galleryTitle').textContent = t.galleryTitle;
-      document.getElementById('art1').textContent = t.art1;
-      document.getElementById('art2').textContent = t.art2;
-      document.getElementById('art3').textContent = t.art3;
-      document.getElementById('art4').textContent = t.art4;
-      document.getElementById('art5').textContent = t.art5;
-      document.getElementById('art6').textContent = t.art6;
-      document.getElementById('art7').textContent = t.art7;
-      document.getElementById('art8').textContent = t.art8;
-      document.getElementById('art9').textContent = t.art9;
-      document.getElementById('art10').textContent = t.art10;
       document.getElementById('aboutTitle').textContent = t.aboutTitle;
       document.getElementById('aboutText').textContent = t.aboutText;
-      document.getElementById('contactTitle').textContent = t.contactTitle;
-      document.getElementById('contactIntro').textContent = t.contactIntro;
+      document.getElementById('galleryTitle').textContent = t.galleryTitle;
+      document.getElementById('purchaseInfo').innerHTML = t.purchaseInfo;
       document.getElementById('footerText').textContent = t.footerText;
 
       if (lang === 'fa') {
