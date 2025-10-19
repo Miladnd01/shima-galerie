@@ -29,6 +29,31 @@
       background: var(--bg-light);
     }
 
+    .language-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px var(--shadow);
+      overflow: hidden;
+    }
+
+    .language-selector select {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background: white;
+      color: var(--primary-dark);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .language-selector select:focus {
+      outline: 2px solid var(--accent);
+    }
+
     header {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
       color: var(--text-light);
@@ -193,7 +218,7 @@
       margin: 0;
     }
 
-    .contact-container {
+    .about-container {
       background: white;
       padding: 3rem;
       border-radius: 15px;
@@ -202,96 +227,44 @@
       margin: 2rem auto;
     }
 
-    .contact-intro {
+    .contact-container {
       text-align: center;
-      margin-bottom: 2rem;
-      color: var(--text-dark);
-      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 2rem auto;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--primary-dark);
-    }
-
-    input, textarea {
-      padding: 1rem;
-      font-size: 1rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      font-family: inherit;
-      transition: border-color 0.3s ease;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 150px;
-    }
-
-    button {
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    .contact-email {
+      display: inline-block;
+      padding: 1.5rem 3rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px var(--shadow);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin-top: 1rem;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px var(--shadow);
+    .contact-email:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
-    button:active {
-      transform: translateY(0);
+    .contact-email a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .confirmation {
-      background: #d4edda;
-      color: #155724;
-      padding: 1rem;
-      border-radius: 8px;
-      text-align: center;
-      margin-top: 1rem;
-      border: 1px solid #c3e6cb;
-      display: none;
-      animation: slideIn 0.5s ease;
+    .contact-email a:hover {
+      color: var(--accent);
     }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .confirmation.show {
-      display: block;
+    .contact-intro {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      color: var(--text-dark);
     }
 
     footer {
@@ -308,6 +281,11 @@
     }
 
     @media (max-width: 768px) {
+      .language-selector {
+        top: 10px;
+        right: 10px;
+      }
+
       header h1 {
         font-size: 2.5rem;
       }
@@ -329,101 +307,113 @@
         gap: 1.5rem;
       }
 
-      .contact-container {
+      .about-container, .contact-container {
         padding: 2rem;
       }
 
       section {
         padding: 1.5rem;
       }
+
+      .contact-email a {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
 
+  <div class="language-selector">
+    <select id="languageSelect" onchange="changeLanguage()">
+      <option value="de">Deutsch</option>
+      <option value="en">English</option>
+      <option value="fa">فارسی</option>
+    </select>
+  </div>
+
   <header>
     <h1>Shima Galerie</h1>
-    <p>Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️</p>
+    <p id="headerSubtitle">Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️</p>
   </header>
 
   <nav>
     <ul>
-      <li><a href="#galerie">Galerie</a></li>
-      <li><a href="#ueber">Über mich</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#galerie" id="navGallery">Galerie</a></li>
+      <li><a href="#ueber" id="navAbout">Über mich</a></li>
+      <li><a href="#kontakt" id="navContact">Kontakt</a></li>
     </ul>
   </nav>
 
   <section id="galerie">
-    <h2>Meine Kunstwerke</h2>
+    <h2 id="galleryTitle">Meine Kunstwerke</h2>
     <div class="gallery">
       <div class="gallery-item">
         <img src="IMG_0471.JPG" alt="Kunstwerk 1">
         <div class="gallery-overlay">
-          <p>Kugelschreiber auf Papier</p>
+          <p id="art1">Kugelschreiber auf Papier</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="IMG_0472.JPG" alt="Kunstwerk 2">
         <div class="gallery-overlay">
-          <p>Bleistiftzeichnung</p>
+          <p id="art2">Bleistiftzeichnung</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="IMG_0474.JPG" alt="Kunstwerk 3">
         <div class="gallery-overlay">
-          <p>Realistische Porträt</p>
+          <p id="art3">Realistische Porträt</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="IMG_0476.JPG" alt="Kunstwerk 4">
         <div class="gallery-overlay">
-          <p>Detailarbeit</p>
+          <p id="art4">Detailarbeit</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="IMG_0477.JPG" alt="Kunstwerk 5">
         <div class="gallery-overlay">
-          <p>Kugelschreiber-Kunst</p>
+          <p id="art5">Kugelschreiber-Kunst</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="photo_2025-10-02_19-05-39.jpg" alt="Kunstwerk 6">
         <div class="gallery-overlay">
-          <p>Bleistift-Skizze</p>
+          <p id="art6">Bleistift-Skizze</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="photo_2025-10-02_19-06-08.jpg" alt="Kunstwerk 7">
         <div class="gallery-overlay">
-          <p>Realistische Darstellung</p>
+          <p id="art7">Realistische Darstellung</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="photo_2025-10-02_19-06-16.jpg" alt="Kunstwerk 8">
         <div class="gallery-overlay">
-          <p>Handzeichnung</p>
+          <p id="art8">Handzeichnung</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="photo_2025-10-02_19-06-24.jpg" alt="Kunstwerk 9">
         <div class="gallery-overlay">
-          <p>Künstlerische Arbeit</p>
+          <p id="art9">Künstlerische Arbeit</p>
         </div>
       </div>
       <div class="gallery-item">
         <img src="photo_2025-10-02_19-06-31.jpg" alt="Kunstwerk 10">
         <div class="gallery-overlay">
-          <p>Feine Linienführung</p>
+          <p id="art10">Feine Linienführung</p>
         </div>
       </div>
     </div>
   </section>
 
   <section id="ueber">
-    <h2>Über mich</h2>
-    <div class="contact-container">
-      <p style="text-align: center; line-height: 1.8;">
+    <h2 id="aboutTitle">Über mich</h2>
+    <div class="about-container">
+      <p id="aboutText" style="text-align: center; line-height: 1.8;">
         Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke 
         mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision 
         und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit 
@@ -433,60 +423,124 @@
   </section>
 
   <section id="kontakt">
-    <h2>Kontakt</h2>
+    <h2 id="contactTitle">Kontakt</h2>
     <div class="contact-container">
-      <p class="contact-intro">
-        Hast du Fragen zu meinen Werken oder möchtest du ein individuelles Kunstwerk in Auftrag geben? 
-        Schreib mir eine Nachricht!
+      <p class="contact-intro" id="contactIntro">
+        Hast du Fragen zu meinen Werken oder möchtest du ein individuelles Kunstwerk in Auftrag geben?
       </p>
-      <form id="contactForm">
-        <div class="form-group">
-          <label for="name">Dein Name *</label>
-          <input type="text" id="name" name="name" required placeholder="Max Mustermann">
-        </div>
-        
-        <div class="form-group">
-          <label for="email">Deine E-Mail *</label>
-          <input type="email" id="email" name="email" required placeholder="max@beispiel.de">
-        </div>
-        
-        <div class="form-group">
-          <label for="message">Deine Nachricht *</label>
-          <textarea id="message" name="message" required placeholder="Schreibe hier deine Nachricht..."></textarea>
-        </div>
-        
-        <button type="submit">Nachricht absenden</button>
-      </form>
-      
-      <div class="confirmation" id="confirmation">
-        ✓ Vielen Dank für deine Nachricht! Ich melde mich so schnell wie möglich bei dir.
+      <div class="contact-email">
+        <a href="mailto:miladnd01@gmail.com">
+          📧 miladnd01@gmail.com
+        </a>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2025 Shima Galerie. Alle Rechte vorbehalten.</p>
+    <p id="footerText">Erstellt von Bikineh</p>
   </footer>
 
   <script>
-    const form = document.getElementById('contactForm');
-    const confirmation = document.getElementById('confirmation');
+    const translations = {
+      de: {
+        headerSubtitle: 'Realistische Kunstwerke mit Kugelschreiber & Bleistift ✏️',
+        navGallery: 'Galerie',
+        navAbout: 'Über mich',
+        navContact: 'Kontakt',
+        galleryTitle: 'Meine Kunstwerke',
+        art1: 'Kugelschreiber auf Papier',
+        art2: 'Bleistiftzeichnung',
+        art3: 'Realistische Porträt',
+        art4: 'Detailarbeit',
+        art5: 'Kugelschreiber-Kunst',
+        art6: 'Bleistift-Skizze',
+        art7: 'Realistische Darstellung',
+        art8: 'Handzeichnung',
+        art9: 'Künstlerische Arbeit',
+        art10: 'Feine Linienführung',
+        aboutTitle: 'Über mich',
+        aboutText: 'Willkommen in meiner Galerie! Ich bin Shima und erschaffe realistische Kunstwerke mit Kugelschreiber und Bleistift. Jedes Werk entsteht durch Geduld, Präzision und Leidenschaft für Details. Meine Inspiration finde ich in der Schönheit des Alltäglichen und der Komplexität menschlicher Ausdrucksformen.',
+        contactTitle: 'Kontakt',
+        contactIntro: 'Hast du Fragen zu meinen Werken oder möchtest du ein individuelles Kunstwerk in Auftrag geben?',
+        footerText: 'Erstellt von Bikineh'
+      },
+      en: {
+        headerSubtitle: 'Realistic Artwork with Pen & Pencil ✏️',
+        navGallery: 'Gallery',
+        navAbout: 'About Me',
+        navContact: 'Contact',
+        galleryTitle: 'My Artworks',
+        art1: 'Pen on Paper',
+        art2: 'Pencil Drawing',
+        art3: 'Realistic Portrait',
+        art4: 'Detailed Work',
+        art5: 'Pen Art',
+        art6: 'Pencil Sketch',
+        art7: 'Realistic Depiction',
+        art8: 'Hand Drawing',
+        art9: 'Artistic Work',
+        art10: 'Fine Line Work',
+        aboutTitle: 'About Me',
+        aboutText: 'Welcome to my gallery! I am Shima and I create realistic artworks with pen and pencil. Each piece is created with patience, precision and passion for detail. I find my inspiration in the beauty of everyday life and the complexity of human expression.',
+        contactTitle: 'Contact',
+        contactIntro: 'Do you have questions about my work or would you like to commission a custom artwork?',
+        footerText: 'Created by Bikineh'
+      },
+      fa: {
+        headerSubtitle: 'آثار هنری واقع‌گرایانه با خودکار و مداد ✏️',
+        navGallery: 'گالری',
+        navAbout: 'درباره من',
+        navContact: 'تماس',
+        galleryTitle: 'آثار هنری من',
+        art1: 'خودکار روی کاغذ',
+        art2: 'طراحی با مداد',
+        art3: 'پرتره واقع‌گرایانه',
+        art4: 'کار جزئیات',
+        art5: 'هنر خودکار',
+        art6: 'طرح مداد',
+        art7: 'نمایش واقع‌گرایانه',
+        art8: 'طراحی دستی',
+        art9: 'کار هنری',
+        art10: 'خط‌کشی ظریف',
+        aboutTitle: 'درباره من',
+        aboutText: 'به گالری من خوش آمدید! من شیما هستم و آثار هنری واقع‌گرایانه با خودکار و مداد خلق می‌کنم. هر اثر با صبر، دقت و اشتیاق به جزئیات ایجاد می‌شود. الهام من را در زیبایی زندگی روزمره و پیچیدگی بیان انسانی می‌یابم.',
+        contactTitle: 'تماس',
+        contactIntro: 'سوالی درباره آثار من دارید یا می‌خواهید یک اثر هنری سفارشی سفارش دهید؟',
+        footerText: 'ساخته شده توسط بیکینه'
+      }
+    };
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    function changeLanguage() {
+      const lang = document.getElementById('languageSelect').value;
+      const t = translations[lang];
       
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
+      document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
+      document.getElementById('navGallery').textContent = t.navGallery;
+      document.getElementById('navAbout').textContent = t.navAbout;
+      document.getElementById('navContact').textContent = t.navContact;
+      document.getElementById('galleryTitle').textContent = t.galleryTitle;
+      document.getElementById('art1').textContent = t.art1;
+      document.getElementById('art2').textContent = t.art2;
+      document.getElementById('art3').textContent = t.art3;
+      document.getElementById('art4').textContent = t.art4;
+      document.getElementById('art5').textContent = t.art5;
+      document.getElementById('art6').textContent = t.art6;
+      document.getElementById('art7').textContent = t.art7;
+      document.getElementById('art8').textContent = t.art8;
+      document.getElementById('art9').textContent = t.art9;
+      document.getElementById('art10').textContent = t.art10;
+      document.getElementById('aboutTitle').textContent = t.aboutTitle;
+      document.getElementById('aboutText').textContent = t.aboutText;
+      document.getElementById('contactTitle').textContent = t.contactTitle;
+      document.getElementById('contactIntro').textContent = t.contactIntro;
+      document.getElementById('footerText').textContent = t.footerText;
 
-      confirmation.classList.add('show');
-      
-      form.reset();
-      
-      setTimeout(() => {
-        confirmation.classList.remove('show');
-      }, 5000);
-    });
+      if (lang === 'fa') {
+        document.body.style.direction = 'rtl';
+      } else {
+        document.body.style.direction = 'ltr';
+      }
+    }
 
     document.querySelectorAll('nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
