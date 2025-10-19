@@ -63,7 +63,7 @@
     .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.5s ease; }
     .gallery-item:hover img { transform: scale(1.1); }
-    .gallery-overlay { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; padding: 0.45rem 0.85rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.25); }
+    .gallery-overlay { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; padding: 0.45rem 0.85rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.25); pointer-events: none; }
 
     .about-container { background: #fff; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow); max-width: 700px; margin: 2rem auto; transition: transform 0.3s ease, box-shadow 0.3s ease; }
     .about-container:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
@@ -315,42 +315,25 @@
       const lbNext = document.getElementById('lbNext');
       const lbCounter = document.getElementById('lbCounter');
 
-      const items = Array.from(document.querySelectorAll('.gallery-item img'));
-      let index = 0;
+      const grid = document.getElementById('galleryGrid');
+      const items = Array.from(grid.querySelectorAll('.gallery-item img'));
+      const cards = Array.from(grid.querySelectorAll('.gallery-item'));
 
-      // Pan & Zoom state
-      let scale = 1, minScale = 1, maxScale = 4;
-      let tx = 0, ty = 0; // translate
-      let pointers = new Map();
-      let baseScale = 1, baseDist = 1; // baseDist safe default
+      // Event Delegation: Klick überall auf der Karte (auch Overlay) öffnet die Lightbox
+      grid.addEventListener('click', (e) => {
+        const card = e.target.closest('.gallery-item');
+        if (!card) return;
+        const i = cards.indexOf(card);
+        if (i > -1) openAt(i);
+      });
 
-      function applyTransform() {
-        lbStage.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
-      }
-
-      function resetTransform() {
-        scale = 1; tx = 0; ty = 0; baseScale = 1; baseDist = 1; applyTransform();
-      }
-
-      function openAt(i) {
-        index = i;
-        const src = items[index].getAttribute('src');
-        const alt = items[index].getAttribute('alt') || 'Bild';
-        lbImg.src = src; lbImg.alt = alt; lbCounter.textContent = `${index + 1} / ${items.length}`;
-        lb.classList.add('open'); document.body.classList.add('lb-lock'); lb.setAttribute('aria-hidden', 'false');
-        resetTransform();
-      }
-
-      function close() {
-        lb.classList.remove('open'); document.body.classList.remove('lb-lock'); lb.setAttribute('aria-hidden', 'true'); lbImg.src = '';
-        pointers.clear(); resetTransform();
-      }
-
-      function next() { openAt((index + 1) % items.length); }
-      function prev() { openAt((index - 1 + items.length) % items.length); }
-
-      items.forEach((img, i) => {
-        img.addEventListener('click', () => openAt(i));
+      // Keyboard-Access: Enter auf fokussierter Karte öffnet Lightbox
+      cards.forEach((card, i) => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', 'Großansicht öffnen');
+        card.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
+      });
         img.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
         img.setAttribute('tabindex', '0'); img.setAttribute('role', 'button'); img.setAttribute('aria-label', 'Großansicht öffnen');
       });
