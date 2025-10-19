@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Shima Galerie - Realistische Kunstwerke mit Kugelschreiber und Bleistift" />
   <title>Shima Galerie | Realistische Kunst</title>
+  <!-- Open Graph / Twitter Cards -->
+  <meta property="og:title" content="Shima Galerie – Realistische Kunst" />
+  <meta property="og:description" content="Kugelschreiber- & Bleistiftkunst von Shima. Galerie & Kontakt." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://miladnd01.github.io/shima-galerie/" />
+  <meta property="og:image" content="https://miladnd01.github.io/shima-galerie/cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shima Galerie – Realistische Kunst" />
+  <meta name="twitter:description" content="Kugelschreiber- & Bleistiftkunst von Shima. Galerie & Kontakt." />
+  <meta name="twitter:image" content="https://miladnd01.github.io/shima-galerie/cover.jpg" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -42,18 +55,13 @@
     h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--accent); }
 
     .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
-    .gallery-item { position: relative; overflow: hidden; border-radius: 14px; box-shadow: 0 6px 18px var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; cursor: zoom-in; border: 1px solid rgba(0,0,0,0.06); }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 16px; box-shadow: 0 6px 18px var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; cursor: zoom-in; border: 1px solid rgba(0,0,0,0.06); aspect-ratio: 4 / 5; }
+    .gallery-item::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55), inset 0 0 0 2px rgba(212,175,55,0.12); } 
+    .gallery-item:hover { transform: translateY(-8px); box-shadow: 0 10px 28px rgba(0,0,0,0.22); }
     .gallery-item::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), inset 0 0 0 2px rgba(0,0,0,0.04); }
     .gallery-item:hover { transform: translateY(-8px); box-shadow: 0 10px 28px rgba(0,0,0,0.22); }
     .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
-    .gallery-item img {
-      width: 100%;
-      height: 350px;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      transition: transform 0.5s ease;
-    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.5s ease; }
     .gallery-item:hover img { transform: scale(1.1); }
     .gallery-overlay { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; padding: 0.45rem 0.85rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.25); }
 
@@ -70,6 +78,29 @@
 
     @media (max-width: 768px) {
       .language-selector { top: 10px; right: 10px; }
+      header { padding: 3rem 1.25rem; }
+      header h1 { font-size: 2.25rem; }
+      header p { font-size: 1rem; }
+      h2 { font-size: 1.75rem; }
+
+      nav ul { gap: 1rem; overflow-x: auto; padding-bottom: 0.25rem; -webkit-overflow-scrolling: touch; }
+      nav ul::-webkit-scrollbar { display: none; }
+
+      .gallery { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+      .gallery-item { aspect-ratio: 3 / 4; }
+      .about-container { padding: 1.25rem; }
+      section { padding: 1rem; }
+
+      /* Lightbox controls bigger for touch */
+      .lightbox .nav button { font-size: 1.35rem; padding: 0.8rem 1rem; margin: 0 0.5rem; }
+      .lightbox .close-btn { font-size: 1.1rem; padding: 0.5rem 0.9rem; top: 16px; right: 16px; }
+      .lightbox .counter { font-size: 1.05rem; bottom: 16px; }
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
       header { padding: 3rem 1.25rem; }
       header h1 { font-size: 2.25rem; }
       header p { font-size: 1rem; }
