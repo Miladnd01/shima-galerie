@@ -56,10 +56,7 @@
 
     .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
     .gallery-item { position: relative; overflow: hidden; border-radius: 16px; box-shadow: 0 6px 18px var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; background: #fff; cursor: zoom-in; border: 1px solid rgba(0,0,0,0.06); aspect-ratio: 4 / 5; }
-    .gallery-item::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55), inset 0 0 0 2px rgba(212,175,55,0.12); } 
-    .gallery-item:hover { transform: translateY(-8px); box-shadow: 0 10px 28px rgba(0,0,0,0.22); }
-    .gallery-item::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), inset 0 0 0 2px rgba(0,0,0,0.04); }
-    .gallery-item:hover { transform: translateY(-8px); box-shadow: 0 10px 28px rgba(0,0,0,0.22); }
+    .gallery-item::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), inset 0 0 0 2px rgba(0,0,0,0.04); }
     .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.5s ease; }
     .gallery-item:hover img { transform: scale(1.1); }
@@ -75,6 +72,21 @@
 
     footer { background: var(--primary-dark); color: var(--text-light); text-align: center; padding: 2rem; margin-top: 4rem; }
     footer p { margin: 0; font-size: 0.95rem; }
+
+    /* ===== Fullscreen Lightbox ===== */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; touch-action: none; }
+    .lightbox.open { display: flex; }
+    /* Stage wrapper for pan/zoom */
+    #lbStage { position: relative; max-width: 92vw; max-height: 92vh; display: flex; align-items: center; justify-content: center; transform: translate3d(0,0,0) scale(1); will-change: transform; cursor: grab; touch-action: none; }
+    #lbStage:active { cursor: grabbing; }
+    #lbImg { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); user-select: none; -webkit-user-drag: none; }
+    .lightbox .close-btn { position: absolute; top: 18px; right: 18px; background: transparent; border: 2px solid rgba(255,255,255,0.6); color: #fff; font-size: 1rem; padding: 0.35rem 0.75rem; border-radius: 999px; cursor: pointer; transition: 0.2s ease; }
+    .lightbox .close-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+    .lightbox .counter { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.85); font-size: 0.95rem; }
+    .lightbox .nav { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
+    .lightbox .nav button { pointer-events: auto; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 1.25rem; padding: 0.6rem 0.9rem; margin: 0 0.75rem; border-radius: 10px; cursor: pointer; transition: 0.2s ease; backdrop-filter: blur(2px); }
+    .lightbox .nav button:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
+    body.lb-lock { overflow: hidden; }
 
     @media (max-width: 768px) {
       .language-selector { top: 10px; right: 10px; }
@@ -101,52 +113,6 @@
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; animation: none !important; }
     }
-      header { padding: 3rem 1.25rem; }
-      header h1 { font-size: 2.25rem; }
-      header p { font-size: 1rem; }
-      h2 { font-size: 1.75rem; }
-
-      nav ul { gap: 1rem; overflow-x: auto; padding-bottom: 0.25rem; -webkit-overflow-scrolling: touch; }
-      nav ul::-webkit-scrollbar { display: none; }
-
-      .gallery { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
-      .gallery-item img { height: 58vw; max-height: 420px; }
-      .about-container { padding: 1.25rem; }
-      section { padding: 1rem; }
-
-      /* Lightbox controls bigger for touch */
-      .lightbox .nav button { font-size: 1.35rem; padding: 0.8rem 1rem; margin: 0 0.5rem; }
-      .lightbox .close-btn { font-size: 1.1rem; padding: 0.5rem 0.9rem; top: 16px; right: 16px; }
-      .lightbox .counter { font-size: 1.05rem; bottom: 16px; }
-    }
-
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; animation: none !important; }
-    }
-      header h1 { font-size: 2.5rem; }
-      header p { font-size: 1.1rem; }
-      h2 { font-size: 2rem; }
-      nav ul { gap: 1.5rem; }
-      .gallery { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-      .about-container { padding: 2rem; }
-      section { padding: 1.5rem; }
-    }
-
-    /* ===== Fullscreen Lightbox ===== */
-    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; touch-action: none; }
-    .lightbox.open { display: flex; }
-    /* Stage wrapper for pan/zoom */
-    #lbStage { position: relative; max-width: 92vw; max-height: 92vh; display: flex; align-items: center; justify-content: center; transform: translate3d(0,0,0) scale(1); will-change: transform; cursor: grab; touch-action: none; }
-    #lbStage:active { cursor: grabbing; }
-    #lbImg { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); user-select: none; -webkit-user-drag: none; }
-    .lightbox .close-btn { position: absolute; top: 18px; right: 18px; background: transparent; border: 2px solid rgba(255,255,255,0.6); color: #fff; font-size: 1rem; padding: 0.35rem 0.75rem; border-radius: 999px; cursor: pointer; transition: 0.2s ease; }
-    .lightbox .close-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-    .lightbox .counter { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.85); font-size: 0.95rem; }
-    .lightbox .nav { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
-    .lightbox .nav button { pointer-events: auto; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 1.25rem; padding: 0.6rem 0.9rem; margin: 0 0.75rem; border-radius: 10px; cursor: pointer; transition: 0.2s ease; backdrop-filter: blur(2px); }
-    .lightbox .nav button:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
-    body.lb-lock { overflow: hidden; }
   </style>
 </head>
 <body>
@@ -319,6 +285,17 @@
       const items = Array.from(grid.querySelectorAll('.gallery-item img'));
       const cards = Array.from(grid.querySelectorAll('.gallery-item'));
 
+      // Lightbox state variables
+      let currentIndex = 0;
+      let scale = 1;
+      let tx = 0;
+      let ty = 0;
+      const minScale = 1;
+      const maxScale = 5;
+      const pointers = new Map();
+      let baseDist = 1;
+      let baseScale = 1;
+
       // Event Delegation: Klick überall auf der Karte (auch Overlay) öffnet die Lightbox
       grid.addEventListener('click', (e) => {
         const card = e.target.closest('.gallery-item');
@@ -333,9 +310,6 @@
         card.setAttribute('role', 'button');
         card.setAttribute('aria-label', 'Großansicht öffnen');
         card.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
-      });
-        img.addEventListener('keydown', (e) => { if (e.key === 'Enter') openAt(i); });
-        img.setAttribute('tabindex', '0'); img.setAttribute('role', 'button'); img.setAttribute('aria-label', 'Großansicht öffnen');
       });
 
       lbClose.addEventListener('click', close);
@@ -435,6 +409,48 @@
         ty -= cy * (targetScale - scale) / targetScale;
         scale = targetScale; applyTransform();
       }, { passive: false });
+
+      // Lightbox functions
+      function openAt(index) {
+        currentIndex = index;
+        updateImage();
+        lb.classList.add('open');
+        document.body.classList.add('lb-lock');
+        resetTransform();
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        document.body.classList.remove('lb-lock');
+        resetTransform();
+      }
+
+      function next() {
+        currentIndex = (currentIndex + 1) % items.length;
+        updateImage();
+      }
+
+      function prev() {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateImage();
+      }
+
+      function updateImage() {
+        lbImg.src = items[currentIndex].src;
+        lbImg.alt = items[currentIndex].alt;
+        lbCounter.textContent = `${currentIndex + 1} / ${items.length}`;
+      }
+
+      function resetTransform() {
+        scale = 1;
+        tx = 0;
+        ty = 0;
+        applyTransform();
+      }
+
+      function applyTransform() {
+        lbStage.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
+      }
     })();
   </script>
 </body>
